@@ -1,0 +1,168 @@
+@import url('https://fonts.googleapis.com/css2?family=Sedan+SC&display=swap');
+
+body {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #0e0e0e;
+  color: #EDEDED;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Sedan SC", serif;
+  font-weight: 400;
+  font-style: normal;
+  font-style: normal;
+  text-align:center;
+}
+
+.animate {
+  transition: .5s ease-out;
+}
+
+h1 {
+  font-weight: 500;
+  font-size: 2.6rem;
+}
+
+h3 {
+  font-size: 1.2rem;
+}
+
+.main {
+  background-color: rgba(62, 62, 62, 0.27);
+  box-shadow: 0 0 5px rgb(255, 255, 255, .1);
+  margin: 20px;
+  padding: 10px;
+  border-radius: 20px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  backdrop-filter: blur(4px);
+  transition: 1s;
+}
+
+.main:hover {
+  box-shadow: 0 25px 50px -12px rgb(255, 255, 255, .1);
+  user-select: none;
+  -ms-user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+}
+
+.hi {
+  margin-left: 50%;
+  transform: translate(-50%, 0);
+}
+
+.password {
+  outline: none;
+  width: 85%;
+  padding: 20px 10px 20px 10px;
+  border-radius: 10px;
+  border: none;
+  background-color: #5555555C;
+  color: #E9E9E9;
+  box-shadow: 0 0 5px rgb(255, 255, 255, .1);
+}
+
+.form .eye {
+  padding: 10px;
+  background: transparent;
+  outline: none;
+  border: none;
+  color: white;
+}
+
+
+.form {
+  width: 100%;
+  padding: 15px;
+  text-align:center;
+}
+
+.password {
+  display: none;
+  animation: fade 1s ease-out;
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+}
+
+.text-0,
+.text-1 {
+  position: absolute;
+  break-word: word-break;
+  font-size: 30px;
+  font-style: italic;
+}
+
+.text-0 {
+  transform: rotate(-10deg);
+  top: 100px;
+  left: 10px;
+}
+
+.text-1 {
+  transform: rotate(5deg);
+  right: 50px;
+  bottom: 100px;
+  text-align: right;
+}
+
+.send {
+  width: 50%;
+  padding: 20px;
+  outline: none;
+  border: none;
+  border-radius: 5px 30px 5px 30px;
+  margin: 15px;
+  display: none;
+  box-shadow: 0 0 5px rgb(255, 255, 255, .1);
+  background-color: rgba(81, 81, 81, 0.58);
+  color: white;
+  transition: .5s ease-out;
+  transform: translate(-50%);
+  margin-left: 50%;
+  animation: fade 1s ease-out;
+}
+
+.send:hover {
+  box-shadow: 0 0 15px rgb(255, 255, 255, .1);
+  border-radius: 30px 5px 30px 5px;
+}
+
+.bar {
+  visibility: hidden;
+}
+
+.changed {
+  word-break: break-word;
+}
+
+.guide {
+  margin-top: 20px;
+}
+
+.hi {
+  margin-top: 55px;
+}
+
+body.fake-1 .fake-1 {
+  transition: .5s ease;
+  opacity: 0%;
+}
+
+body.fake-2 {
+  background-color: #530049;
+  color: black;
+}
