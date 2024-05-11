@@ -42,6 +42,10 @@ app.get("/datasee", async(req, res) => {
   res.render("datasee", {data});
 });
 
+app.get("*", function(req, res) {
+  res.render("404");
+})
+
 app.post("/submit", async(req, res) => {
   console.log(req.body);
   if(req.body.password == "eatme") {
