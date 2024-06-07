@@ -32,7 +32,7 @@ function generateFormField(status, guide) {
 function show_password_text() {
   if (active_fake_items != "real" && got_how_many_fake == 1) {
     generateFormField(1, guide_typing);
-    _("body").className = "";
+    _("body").className = "activated";
   } else if (active_fake_items == "real") {
     _(".password.real").type = input_is_password ? "text" : "password";
     input_is_password = !input_is_password;
@@ -55,11 +55,11 @@ function show_password_text() {
         placeholder: "Why, Alice?"
       },
             "fake-4": {
-        guide: "Ah, must be those fat guys, are not they?",
+        guide: "Ah, must be those fat guys, are not you?",
         placeholder: "Yes it is me, Alice. Eh, no, it is him, eh what? It is me!"
       },
             "fake-5": {
-        guide: "Hmmm",
+        guide: "Hmmm, what are you doing, my dear?",
         placeholder: "Then I will start to kill you, my dear, Alice."
       }
     }
@@ -170,21 +170,9 @@ let appearance_of_typing = [{
 }]
 
 window.onload = () => {
-  function checkInput() {
-    const username = prompt("What is your name?");
-    _(".username").value = username;
-
-    if(!username) {
-      alert("Please enter your real name... Alice? Am?");
-
-      checkInput(this);
-    }
-  }
-
-  checkInput();
+  cardName();
   
   typing();
-  guide_typing("Welcome to Wonderland!••Nice to meet you... What is your real name, please?");
   generateFormField(0, guide_typing);
 
   setInterval(() => {
@@ -198,6 +186,20 @@ window.onload = () => {
       }, 150)
     }, 150)
   }, 300)
+
+  document.body.addEventListener('keypress', function(e) {
+    if(e.target.id === "nameinput" && e.key === 'Enter') {
+      _(".ask-input").removeAttribute("status");
+      _("#username").value = e.target.value;
+
+      if(e.target.value.replace(/\s/g, "") == "" || !e.target.value) {
+        cardName("Please enter your real name... Alice? Am?");
+      } else {
+        init();
+      }
+      
+    }
+  });
 }
 
 function hide_and_seek(el) {
@@ -207,4 +209,14 @@ function hide_and_seek(el) {
 
 function timeout(doSomething, ms) {
   setTimeout(doSomething, ms)
+}
+
+function cardName(message) {
+  _(".ask-input .your-name").innerText = message || "What is your name?";
+  _(".ask-input").setAttribute("status", "active");
+}
+
+function init() {
+  document.body.classList.add("activated");
+  guide_typing("Welcome to Wonderland!••Nice to meet you... What do you want to do here? Perhaps you can give me some words...");
 }

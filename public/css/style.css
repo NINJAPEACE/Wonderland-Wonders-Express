@@ -46,6 +46,12 @@ h3 {
   left: 0;
   backdrop-filter: blur(4px);
   transition: 1s;
+  display:none;
+}
+
+body.activated .main {
+  display:block;
+  animation: fadeUp 1s ease-in;
 }
 
 .main:hover {
@@ -78,6 +84,11 @@ h3 {
   outline: none;
   border: none;
   color: white;
+}
+
+.form .eye:hover {
+  opacity:50%;
+  transition:0.5s;
 }
 
 
@@ -165,4 +176,47 @@ body.fake-1 .fake-1 {
 body.fake-2 {
   background-color: #530049;
   color: black;
+}
+
+.ask-input {
+  z-index:1;
+  backdrop-filter:blur(20px);
+  width:100%;
+  height:100%;
+  font-size:4rem;
+  display:none;
+}
+
+.ask-input[status="active"] {
+  display:block;
+  animation: fadeUp 0.75s ease-out;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+  }
+}
+
+.ask-input .content {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.ask-input .content .username-input {
+  outline: none;
+  width: 85%;
+  padding: 20px 10px 20px 10px;
+  border-radius: 10px;
+  border: none;
+  background-color: #5555555C;
+  color: #E9E9E9;
+  box-shadow: 0 0 5px rgb(255, 255, 255, .1);
+}
+
+.username {
+  display:none;
 }

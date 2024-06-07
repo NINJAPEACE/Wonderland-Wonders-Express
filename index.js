@@ -1,25 +1,32 @@
 const express = require("express"), app = express();
 const mongoose = require("mongoose");
+const morgan = require("morgan"); //import morgan
+const methodOverride = require("method-override");
 
-mongoose.connect("mongodb+srv://ninjabro:wtfman@cluster0.spf3bd5.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0", {});
+mongoose.connect("mongodb+srv://vercel-admin-user:wwsoc15@cluster0.spf3bd5.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0", {});
 
 mongoose.connection
 .on("open", () => console.log("Connected to Mongoose"))
 .on("close", () => console.log("Disconnected from Mongoose"))
 .on("error", (error) => console.log(error))
 
-const {Schema, model} = mongoose;
+const { Schema, model } = mongoose;
 
 const timeSchema = new Schema({
   username: String,
   time: Number
 })
 
-
 const Data = model("UserData", timeSchema);
+
+app.use(morgan("tiny"));
+app.use(methodOverride("_method")) ;
+app.use(express.urlencoded({extended: true}));
 
 app.set("view engine", "ejs");
 app.use(express.static("public"));
+
+let theURL = "https://0137b1cf-c204-4849-bf00-14452970fc6f-00-3rex8pf0sl8of.sisko.replit.dev/";
 
 app.get("/hareishere", function (req, res) {
   res.render("index");
@@ -39,12 +46,16 @@ app.get("*", function(req, res) {
 })
 
 app.post("/submit", async(req, res) => {
-  console.log(req.body);
-  if(req.body.password == "eatme") {
-    await Data.create({username: req.body.username, time: Date.now()});
-    res.redirect("https://github.com/NINJAPEACE");
-  } else if(req.body.password == "drinkme") {
-    res.redirect("https://tryitands.ee");
+  if(!req.body) {
+    res.redirect(theURL + "hareishere");
+  } else {
+    console.log(req.body);
+    if(req.body.password == "eatme") {
+      await Data.create({username: req.body.username, time: Date.now()});
+      res.redirect("https://github.com/NINJAPEACE");
+    } else if(req.body.password == "drinkme") {
+      res.redirect("https://tryitands.ee");
+    }
   }
 })
 

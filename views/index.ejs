@@ -14,6 +14,14 @@
 </head>
 
 <body>
+
+  <div class="ask-input"> 
+    <div class="content">
+    <div class="your-name"></div>
+    <input type="text" class="username-input" placeholder="Your username" id="nameinput">
+    </div>
+  </div>
+  
   <h1 class="text-0">
     <span class="changed"></span>
     <span class="bar">&nbsp;|</span>
@@ -36,62 +44,21 @@
 
     1. USER GET INTO THE WEB
     2. TROLLED BY RANDOM CASE 2 RANDOM CASE THEN REAL 
-
-
-     action="/submit" method="post"
+     
     -->
-
     <div class="form real">
-      <form id="submission">
-      <!-- 
-      CASE 1 
-      input gone, the paragraph, laughing.
-      continue
-      -->
-      <input class="password fake-1" placeholder="Yes, fill me, sweetheart" id="password" type="password">
-
-      <!-- 
-      CASE 2
-      input transforms, design changed.
-      continue
-      -->
-      <input class="password fake-2" placeholder="Am? You're welcomed" id="password" type="password">
-
-      <!-- 
-      CASE 3
-      everything's gone.
-      continue
-      -->
-      <input class="password fake-3" placeholder="Please save my wife and kids" id="password" type="password">
-
-      <!-- 
-      CASE 4
-      rotate 180deg.
-      continue
-      -->
-      <input class="password fake-4" placeholder="Welcome back, dear Alice" id="password" type="password">
-
-      <!-- 
-      CASE 5
-      rickroll.
-      continue
-      -->
-      <input class="password fake-5" placeholder="Do you want to be my wife, Alice?" id="password" type="password">
-
-
-      <!-- 
-      CASE REAL
-      input gone, the paragraph, laughing.
-      continue
-      -->
-      <input name="password" class="password real" placeholder="This one probably..." type="password" id="password password-real">
-      
-        <input type="text" class="password username" name="username" placeholder="Your username">
-      
+      <form id="submission" action="/submit" method="post">
+        <input class="password fake-1" placeholder="Yes, fill me, sweetheart" id="password" type="password">
+        <input class="password fake-2" placeholder="Am? You're welcomed" id="password" type="password">
+        <input class="password fake-3" placeholder="Please save my wife and kids" id="password" type="password">
+        <input class="password fake-4" placeholder="Welcome back, dear Alice" id="password" type="password">
+        <input class="password fake-5" placeholder="Do you want to be my wife, Alice?" id="password" type="password">
+        
+        <input name="password" class="password real" placeholder="This one probably..." type="password" id="password password-real">
         <button class="eye" id="eye" onclick="show_password_text()"><i class="fas fa-eye"></i></button>
-
+        <input type="text" class="username" name="username" id="username">
         <button class="send" onclick="send_password_text()">Send?</button>
-        </form>
+     </form>
 
     </div>
     
