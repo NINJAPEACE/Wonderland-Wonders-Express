@@ -11,12 +11,12 @@ function _(args) {
   return document.querySelector(args);
 }
 
-function generateFormField(status, guide_typing) {
+function generateFormField(status, guide) {
   let num = 0;
 
   if (status) {
     num = "real";
-    guide_typing("Ah, Alice, finally you have passed those imaginations!••I have found the real one, here..");
+    guide("Ah, Alice, finally you have passed those imaginations!••I have found the real one, here..");
     _(".send").style.display = "block";
   } else num = "fake-" + fake_items_list[Math.floor(Math.random() * fake_items_list.length)];
 
@@ -25,8 +25,7 @@ function generateFormField(status, guide_typing) {
   _(`.password.${num}`).style.display = "inline";
   active_fake_items = num;
 
-  if (fake_list_length != fake_items_list.length && !status) guide_typing("The real input should be this one, Alice, I guess...");
-
+  if (fake_list_length != fake_items_list.length && !status) guide("The real input should be this one, Alice, I guess...");
   fake_items_list = fake_items_list.splice(fake_items_list.indexOf(Number(num.replace("fake-", ""))) - 1, 1);
 }
 
@@ -171,8 +170,21 @@ let appearance_of_typing = [{
 }]
 
 window.onload = () => {
+  function checkInput() {
+    const username = prompt("What is your name?");
+    _(".username").value = username;
+
+    if(!username) {
+      alert("Please enter your real name... Alice? Am?");
+
+      checkInput(this);
+    }
+  }
+
+  checkInput();
+  
   typing();
-  guide_typing("Welcome to Wonderland!••Nice to meet you.••Try this one, please...");
+  guide_typing("Welcome to Wonderland!••Nice to meet you... What is your real name, please?");
   generateFormField(0, guide_typing);
 
   setInterval(() => {
