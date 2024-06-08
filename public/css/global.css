@@ -1,0 +1,34 @@
+@import url('https://fonts.googleapis.com/css2?family=Sedan+SC&display=swap');
+
+body {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #0e0e0e;
+  color: #EDEDED;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Sedan SC", serif;
+  font-weight: 400;
+  font-style: normal;
+  font-style: normal;
+  text-align:center;
+}
+
+.animate {
+  transition: .5s ease-out;
+}
+
+h1 {
+  font-weight: 500;
+  font-size: 2.6rem;
+}
+
+h3 {
+  font-size: 1.2rem;
+}

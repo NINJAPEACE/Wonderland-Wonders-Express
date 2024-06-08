@@ -1,38 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Sedan+SC&display=swap');
-
-body {
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #0e0e0e;
-  color: #EDEDED;
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Sedan SC", serif;
-  font-weight: 400;
-  font-style: normal;
-  font-style: normal;
-  text-align:center;
-}
-
-.animate {
-  transition: .5s ease-out;
-}
-
-h1 {
-  font-weight: 500;
-  font-size: 2.6rem;
-}
-
-h3 {
-  font-size: 1.2rem;
-}
-
 .main {
   background-color: rgba(62, 62, 62, 0.27);
   box-shadow: 0 0 5px rgb(255, 255, 255, .1);
@@ -168,6 +133,11 @@ body.activated .main {
   margin-top: 55px;
 }
 
+body.fake-1 {
+  background-color:#6814fa;
+  color:#e1dce8;
+}
+
 body.fake-1 .fake-1 {
   transition: .5s ease;
   opacity: 0%;
@@ -176,6 +146,32 @@ body.fake-1 .fake-1 {
 body.fake-2 {
   background-color: #530049;
   color: black;
+}
+
+body.fake-3 .main {
+  transform:skew(50deg) rotateY(180deg);
+  transition:0.8s ease;
+}
+
+body.fake-3 {
+  background-color:#0db51b;
+  color:#f0ec89;
+}
+
+body.fake-4 {
+  background-color:#e31414;
+  color:#38046b;
+}
+
+body.fake-4 .main {
+  transform:scale(5);
+  transition:.75s ease;
+}
+
+body.fake-5 {
+  font-size:25px;
+  background-color:#f72fe3;
+  color:#eee;
 }
 
 .ask-input {
@@ -215,6 +211,11 @@ body.fake-2 {
   background-color: #5555555C;
   color: #E9E9E9;
   box-shadow: 0 0 5px rgb(255, 255, 255, .1);
+  display:block;
+}
+
+.ask-input .content .username-input.off {
+  display:none;
 }
 
 .username {

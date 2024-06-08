@@ -1,84 +1,45 @@
-let input_is_password = 1;
-let got_how_many_fake = 0;
+let fake = {
+  list: [1, 2, 3, 4, 5],
+  length: 5,
+};
+let activeFake;
+let usedFake = {
+  list: [],
+  length: 0,
+};
+let onFake = 0;
 
-let fake_items_list = [1, 2, 3, 4, 5];
-let fake_list_length = fake_items_list.length;
-let active_fake_items;
-let already_used_fake_items = [];
-let user_is_on_fake = 0;
-
-function _(args) {
-  return document.querySelector(args);
-}
-
-function generateFormField(status, guide) {
+function generateInput(status, func) {
   let num = 0;
 
   if (status) {
     num = "real";
-    guide("Ah, Alice, finally you have passed those imaginations!••I have found the real one, here..");
+    func(
+      "Ah, Alice, finally you have passed those imaginations!••I have found the real one, here..",
+    );
     _(".send").style.display = "block";
-  } else num = "fake-" + fake_items_list[Math.floor(Math.random() * fake_items_list.length)];
+    document.body.className = "activated";
+  } else
+    num = "fake-" + fake.list[Math.floor(Math.random() * fake.list.length)];
 
-  if (active_fake_items) _(`.password.${active_fake_items}`).style.display = "none";
+  if (activeFake) _(`.password.${activeFake}`).style.display = "none";
 
   _(`.password.${num}`).style.display = "inline";
-  active_fake_items = num;
+  activeFake = num;
 
-  if (fake_list_length != fake_items_list.length && !status) guide("The real input should be this one, Alice, I guess...");
-  fake_items_list = fake_items_list.splice(fake_items_list.indexOf(Number(num.replace("fake-", ""))) - 1, 1);
-}
-
-function show_password_text() {
-  if (active_fake_items != "real" && got_how_many_fake == 1) {
-    generateFormField(1, guide_typing);
-    _("body").className = "activated";
-  } else if (active_fake_items == "real") {
-    _(".password.real").type = input_is_password ? "text" : "password";
-    input_is_password = !input_is_password;
-  } else if (!user_is_on_fake) {
-
-    user_is_on_fake = 1;
-    got_how_many_fake++;
-    /* ALL TRICKS HERE */
-    let list = {
-      "fake-1": {
-        guide: "Ahahaha, sometimes humans are foolish••Click again, you dumb!",
-        placeholder: ""
-      },
-      "fake-2": {
-        guide: "Did you just consume something? I feel something weird has happened...••Hey, click again! You want to do the quest right?",
-        placeholder: "Eat me or drink me?"
-      },
-            "fake-3": {
-        guide: "You should save her, Alice.",
-        placeholder: "Why, Alice?"
-      },
-            "fake-4": {
-        guide: "Ah, must be those fat guys, are not you?",
-        placeholder: "Yes it is me, Alice. Eh, no, it is him, eh what? It is me!"
-      },
-            "fake-5": {
-        guide: "Hmmm, what are you doing, my dear?",
-        placeholder: "Then I will start to kill you, my dear, Alice."
-      }
-    }
-
-    _(`.${active_fake_items}`).placeholder = list[active_fake_items].placeholder;
-    guide_typing(list[active_fake_items].guide);
-    _("body").classList.add(active_fake_items);
-
-  } else {
-    user_is_on_fake = 0;
-    generateFormField(0, guide_typing);
-
-  }
+  if (fake.length != fake.list.length && !status)
+    func("The real input should be this one, Alice, I guess...");
+  fake.list = fake.list.splice(
+    fake.list.indexOf(Number(num.replace("fake-", ""))) - 1,
+    1,
+  );
 }
 
 var onTyping = 0;
 var typingActive;
 
-function guide_typing(word) {
+// single-typing
+function singleType(word) {
   let i = 0;
   let clear = 0;
 
@@ -86,37 +47,102 @@ function guide_typing(word) {
   typingActive = setInterval(() => {
     if (i <= word.length - 1) {
       onTyping = true;
-      let output = (!clear ? "" : _('.guide .changed').innerHTML) + (word[i] == "•" ? "<br>" : word[i]);
+      let output =
+        (!clear ? "" : _(".guide .changed").innerHTML) +
+        (word[i] == "•" ? "<br>" : word[i]);
 
       clear++;
 
-      _('.guide .changed').innerHTML = output;
+      _(".guide .changed").innerHTML = output;
       i++;
     }
-  }, 85)
+  }, 55);
 }
 
-function send_password_text() {
-  let password_inputted = _(".password.real").value;
+function submit() {
+  if (!onFake) {
+    onFake = 1;
+    usedFake.length++;
 
-  if (!password_inputted) {
-    guide_typing("Hmm, fill in the password, Alice. Do not be dumb like those creatures...")
+    let list = {
+      "fake-1": {
+        guide: "Ahahaha, sometimes humans are foolish••Click again, you dumb!",
+        placeholder: "",
+      },
+      "fake-2": {
+        guide:
+          "Did you just consume something? I feel something weird has happened...••Hey, click again! You want to do the quest right?",
+        placeholder: "Eat me or drink me?",
+      },
+      "fake-3": {
+        guide: "You should save her, Alice.",
+        placeholder: "Why, Alice?",
+      },
+      "fake-4": {
+        guide: "Ah, must be those fat guys, are not you?",
+        placeholder:
+          "Yes it is me, Alice. Eh, no, it is him, eh what? It is me!",
+      },
+      "fake-5": {
+        guide: "Hmmm, what are you doing, my dear?",
+        placeholder: "Then I will start to kill you, my dear, Alice.",
+      },
+    };
+
+    _(`.${activeFake}`).placeholder = list[activeFake].placeholder;
+    singleType(list[activeFake].guide);
+    _("body").classList.add(activeFake);
+  } else if (onFake && activeFake !== "real") {
+    generateInput(1, singleType);
   } else {
-    password_inputted = password_inputted.replace(/\s/g, "");
-
-    let the_key = ["eatme", "drinkme"];
-    let the_key_links = ["https://github.com/NINJAPEACE", "https://tryitands.ee"]
-
-    if (the_key.includes(password_inputted)) {
-      window.location.href = the_key_links[the_key.indexOf(password_inputted)];
+    let password_inputted = _(".password.real").value;
+    if (!password_inputted) {
+      singleType(
+        "Hmm, fill in the password, Alice. Do not be dumb like those creatures...",
+      );
     } else {
-      guide_typing("Alice, I think it does not work, maybe you have input the wrong password?")
+      password_inputted = password_inputted.replace(/\s/g, "");
+
+      let the_key = ["eatme", "drinkme"];
+      let the_key_links = [
+        "https://github.com/NINJAPEACE",
+        "https://tryitands.ee",
+      ];
+
+      if (the_key.includes(password_inputted)) {
+        window.location.replace(the_key_links[the_key.indexOf(password_inputted)]);
+        cardPrompt([".ask-input", ".your-name", ".username-input"], "Oh dear! The wonder is happening...");
+
+        setInterval(() => {
+          if(window.location.href !== the_key_links[the_key.indexOf(password_inputted)]) {
+            window.location.replace(the_key_links[the_key.indexOf(password_inputted)]);
+          }
+        }, 500)
+      } else {
+        singleType(
+          "Alice, I think it does not work, maybe you have input the wrong password?",
+        );
+      }
     }
   }
 }
 
+// double-typing
 function typing() {
-  let words = [["Is that Alice?", "This one, can not you see?", "Ah, yes, it is a stupid kid,•must not be Alice!", "How could we tell Alice•that she should find it on the le-"], ["What? Where?", "This stupid one?", "I bet for an eye, she•does not even know the•password", "Stop, you dumbhead!•You are spoiling it!•Do not spoil it to•anyone that is not Alice!"]];
+  let words = [
+    [
+      "Is that Alice?",
+      "This one, can not you see?",
+      "Ah, yes, it is a stupid kid,•must not be Alice!",
+      "How could we tell Alice•that she should find it on the le-",
+    ],
+    [
+      "What? Where?",
+      "This stupid one?",
+      "I bet for an eye, she•does not even know the•password",
+      "Stop, you dumbhead!•You are spoiling it!•Do not spoil it to•anyone that is not Alice!",
+    ],
+  ];
   let typer = 0; //index speaker
   let i = [0, 0]; //index string
   let j = [0, 0]; //index arr
@@ -124,17 +150,17 @@ function typing() {
   let resetWait = [0, 0];
 
   setInterval(() => {
-    if (!words[typer][j[typer]] || i[typer] > (words[typer][j[typer]].length - 1)) {
-
+    if (
+      !words[typer][j[typer]] ||
+      i[typer] > words[typer][j[typer]].length - 1
+    ) {
       let oldTyper = typer;
       typer = typer ? 0 : 1;
 
       reset[oldTyper] = 1;
       i[oldTyper] = 0;
 
-      j[oldTyper] = words[oldTyper][j[oldTyper]] ? (j[oldTyper] + 1) : 0;
-
-
+      j[oldTyper] = words[oldTyper][j[oldTyper]] ? j[oldTyper] + 1 : 0;
     } else {
       let old = _(`.text-${typer.toString()} .changed`).innerHTML;
 
@@ -145,78 +171,73 @@ function typing() {
       if (reset[typer] && resetWait[typer] < n) {
         resetWait[typer]++;
       } else {
-
         let output;
 
         if (resetWait[typer] == n) {
-          output = '', resetWait[typer] = 0;
+          (output = ""), (resetWait[typer] = 0);
         } else {
-          output = old + (words[typer][j[typer]][i[typer]] != " " ? words[typer][j[typer]][i[typer]] == "•" ? "<br>" : words[typer][j[typer]][i[typer]] : "&nbsp;");
+          output =
+            old +
+            (words[typer][j[typer]][i[typer]] != " "
+              ? words[typer][j[typer]][i[typer]] == "•"
+                ? "<br>"
+                : words[typer][j[typer]][i[typer]]
+              : "&nbsp;");
           i[typer]++;
         }
 
         _(`.text-${typer.toString()} .changed`).innerHTML = output;
         reset[typer] = 0;
-
       }
     }
-  }, 75)
+  }, 75);
 }
 
-let appearance_of_typing = [{
-  "text-1": 0,
-  "text-2": 0,
-  "guide": 0
-}]
+let typingBar = [
+  {
+    "text-0": 0,
+    "text-1": 0,
+    guide: 0,
+  },
+];
 
 window.onload = () => {
-  cardName();
-  
+  cardPrompt([".ask-input", ".your-name", ".username-input"], null, true);
+
   typing();
-  generateFormField(0, guide_typing);
+  generateInput(0, singleType);
 
   setInterval(() => {
-    hide_and_seek("text-0");
+    typingBar["text-0"] = hideAndSeek("text-0", typingBar, ".bar");
 
     timeout(() => {
-      hide_and_seek("guide");
+      typingBar["guide"] = hideAndSeek("guide", typingBar, ".bar");
 
       timeout(() => {
-        hide_and_seek("text-1");
-      }, 150)
-    }, 150)
-  }, 300)
+        typingBar["text-1"] = hideAndSeek("text-1", typingBar, ".bar");
+      }, 150);
+    }, 150);
+  }, 300);
 
-  document.body.addEventListener('keypress', function(e) {
-    if(e.target.id === "nameinput" && e.key === 'Enter') {
+  document.body.addEventListener("keypress", function (e) {
+    if (e.target.id === "username-input" && e.key === "Enter") {
       _(".ask-input").removeAttribute("status");
       _("#username").value = e.target.value;
 
-      if(e.target.value.replace(/\s/g, "") == "" || !e.target.value) {
-        cardName("Please enter your real name... Alice? Am?");
+      if (e.target.value.replace(/\s/g, "") == "" || !e.target.value) {
+        cardPrompt(
+          [".ask-input", ".your-name", ".username-input"],
+          "Please enter your real name... Alice? Am?",
+        );
       } else {
-        init();
+        document.body.classList.add("activated");
+        singleType(
+          "Welcome to Wonderland!••Nice to meet you... What do you want to do here? Perhaps you can give me some words...",
+        );
       }
-      
+    } else if (e.target.id !== "username-input" && e.key === "Enter") {
+
+      submit();
     }
   });
-}
-
-function hide_and_seek(el) {
-  _(`.${el} .bar`).style.visibility = appearance_of_typing[el] ? "hidden" : "visible";
-  appearance_of_typing[el] = !appearance_of_typing[el];
-}
-
-function timeout(doSomething, ms) {
-  setTimeout(doSomething, ms)
-}
-
-function cardName(message) {
-  _(".ask-input .your-name").innerText = message || "What is your name?";
-  _(".ask-input").setAttribute("status", "active");
-}
-
-function init() {
-  document.body.classList.add("activated");
-  guide_typing("Welcome to Wonderland!••Nice to meet you... What do you want to do here? Perhaps you can give me some words...");
-}
+};
