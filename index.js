@@ -31,7 +31,8 @@ app.get("/hareishere", function (req, res) {
 });
 
 app.get("/absolemganteng123", function (req, res) {
-  res.render("absolem");
+  console.log(req.query.items);
+  res.render("absolem", { param: req.query.items });
 });
 
 app.get("/datasee", async(req, res) => {

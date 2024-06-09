@@ -10,10 +10,35 @@
   <link rel="stylesheet" href="/css/global.css">
   <link rel="stylesheet" href="/css/style.css">
 
+  <style>
+    .items-data {
+      display:none;
+    }
+  </style>
+
 </head>
 
 <body>
+  <%- include('../public/partials/prompt.ejs') %>
+  <div class="main">
+    <h1>Hi, little kid.</h1>
+    <h2>Give me something, then I'll give something to you as a trade...</h2>
+    <h3>
 
+    <p id="items" class="items-data"><%= param %></p>
+
+    
+      <!--
+      if a then show a, also for the other cases
+      -->
+    </h3>
+  </div>
+
+    <script src="/components/args.js"></script>
+    <script src="/components/prompt.js"></script>
+    <script>
+      cardPrompt([".prompt", ".title", ".input"], "What is your name?", 1)
+    </script>
 </body>
 
 </html>

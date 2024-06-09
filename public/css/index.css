@@ -4,18 +4,27 @@
   margin: 20px;
   padding: 10px;
   border-radius: 20px;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  left: 0;
   backdrop-filter: blur(4px);
   transition: 1s;
-  display:none;
+  display: none;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  flex-flow: column wrap;
+  align-items: center;
+  gap:2.5rem;
+  width:75%;
+  text-align:center;
+}
+
+.main .password {
+  margin-top:2rem;
 }
 
 body.activated .main {
-  display:block;
+  display: block;
   animation: fadeUp 1s ease-in;
 }
 
@@ -172,50 +181,6 @@ body.fake-5 {
   font-size:25px;
   background-color:#f72fe3;
   color:#eee;
-}
-
-.ask-input {
-  z-index:1;
-  backdrop-filter:blur(20px);
-  width:100%;
-  height:100%;
-  font-size:4rem;
-  display:none;
-}
-
-.ask-input[status="active"] {
-  display:block;
-  animation: fadeUp 0.75s ease-out;
-}
-
-@keyframes fadeUp {
-  from {
-    opacity: 0;
-  }
-}
-
-.ask-input .content {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  -webkit-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-}
-
-.ask-input .content .username-input {
-  outline: none;
-  width: 85%;
-  padding: 20px 10px 20px 10px;
-  border-radius: 10px;
-  border: none;
-  background-color: #5555555C;
-  color: #E9E9E9;
-  box-shadow: 0 0 5px rgb(255, 255, 255, .1);
-  display:block;
-}
-
-.ask-input .content .username-input.off {
-  display:none;
 }
 
 .username {

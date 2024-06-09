@@ -9,17 +9,11 @@
   <title>Hare is here</title>
   <link rel="stylesheet" href="/css/global.css">
   <link rel="stylesheet" href="/css/index.css">
+  <link rel="stylesheet" href="/partials/prompt.css">
 </head>
 
 <body>
-
-  <div class="ask-input"> 
-    <div class="content">
-      <div class="your-name"></div>
-      <input type="text" class="username-input" placeholder="Your username" id="username-input">
-    </div>
-  </div>
-  
+  <%- include('../public/partials/prompt.ejs') %>
   <h1 class="text-0">
     <span class="changed"></span>
     <span class="bar">&nbsp;|</span>
@@ -40,15 +34,15 @@
 
     <div class="form real">
       <form id="submission" action="/submit" method="post">
-        <input class="password fake-1" placeholder="Yes, fill me, sweetheart" type="text">
-        <input class="password fake-2" placeholder="Am? You're welcomed" type="text">
-        <input class="password fake-3" placeholder="Please save my wife and kids" type="text">
-        <input class="password fake-4" placeholder="Welcome back, dear Alice" type="text">
-        <input class="password fake-5" placeholder="Do you want to be my wife, Alice?" id="password" type="text">
+        <input class="password fake-1" placeholder="Yes, fill me, sweetheart" type="text" id="password">
+        <input class="password fake-2" placeholder="Am? You're welcomed" type="text" id="password">
+        <input class="password fake-3" placeholder="Please save my wife and kids" type="text" id="password">
+        <input class="password fake-4" placeholder="Welcome back, dear Alice" type="text" id="password">
+        <input class="password fake-5" placeholder="Do you want to be my wife, Alice?" id="password" type="text" id="password">
         
         <input name="password" class="password real" placeholder="This one probably..." type="text" id="password password-real">
         <input type="text" class="username" name="username" id="username">
-        <button class="send" onclick="submit()">Send?</button>
+        <button class="send" id="send">Send?</button>
      </form>
 
     </div>

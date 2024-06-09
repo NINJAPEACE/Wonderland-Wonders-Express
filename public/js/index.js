@@ -110,14 +110,24 @@ function submit() {
       ];
 
       if (the_key.includes(password_inputted)) {
-        window.location.replace(the_key_links[the_key.indexOf(password_inputted)]);
-        cardPrompt([".ask-input", ".your-name", ".username-input"], "Oh dear! The wonder is happening...");
+        window.location.replace(
+          the_key_links[the_key.indexOf(password_inputted)],
+        );
+        cardPrompt(
+          [".prompt", ".title", ".input"],
+          "Oh dear! The wonder is happening...",
+        );
 
         setInterval(() => {
-          if(window.location.href !== the_key_links[the_key.indexOf(password_inputted)]) {
-            window.location.replace(the_key_links[the_key.indexOf(password_inputted)]);
+          if (
+            window.location.href !==
+            the_key_links[the_key.indexOf(password_inputted)]
+          ) {
+            window.location.replace(
+              the_key_links[the_key.indexOf(password_inputted)],
+            );
           }
-        }, 500)
+        }, 500);
       } else {
         singleType(
           "Alice, I think it does not work, maybe you have input the wrong password?",
@@ -202,7 +212,7 @@ let typingBar = [
 ];
 
 window.onload = () => {
-  cardPrompt([".ask-input", ".your-name", ".username-input"], null, true);
+  cardPrompt([".prompt", ".title", ".input"], null, true);
 
   typing();
   generateInput(0, singleType);
@@ -219,15 +229,20 @@ window.onload = () => {
     }, 150);
   }, 300);
 
-  document.body.addEventListener("keypress", function (e) {
-    if (e.target.id === "username-input" && e.key === "Enter") {
-      _(".ask-input").removeAttribute("status");
+  _("#password").addEventListener("keypress", function (e) {
+    submit();
+  });
+
+  _("#input").addEventListener("keypress", function (e) {
+    if (e.key === "Enter") {
+      _(".prompt").removeAttribute("status");
       _("#username").value = e.target.value;
 
       if (e.target.value.replace(/\s/g, "") == "" || !e.target.value) {
         cardPrompt(
-          [".ask-input", ".your-name", ".username-input"],
+          [".prompt", ".title", ".input"],
           "Please enter your real name... Alice? Am?",
+          true,
         );
       } else {
         document.body.classList.add("activated");
@@ -235,9 +250,8 @@ window.onload = () => {
           "Welcome to Wonderland!••Nice to meet you... What do you want to do here? Perhaps you can give me some words...",
         );
       }
-    } else if (e.target.id !== "username-input" && e.key === "Enter") {
-
-      submit();
     }
   });
+  
+  _("#send").addEventListener("click", submit);
 };
