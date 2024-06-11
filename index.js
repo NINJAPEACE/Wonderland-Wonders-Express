@@ -36,19 +36,46 @@ app.get("/hareishere", function (req, res) {
 });
 
 app.get("/absolemganteng123", async (req, res) => {
-  let status = "false";
-  if (req.query.userid) {
-    const user = await Data.findOne({ username: req.query.userid });
-    if (user) {
-      if (user.items.includes(req.query.item)) {
-        status = "already";
-      } else {
-        status = "allowed";
-      }
-    } else status = "404";
-  }
+  let list = [
+    "hookah",
+    "glasses",
+    "mushroom",
+    "cake",
+    "potion",
+    "jubjubbird",
+    "bandersnatch",
+  ];
+  
+  let username = req.query.username;
+  let item = req.query.item;
+  if (username) {
+    if (list.includes(item)) {
+      console.log("included item avail");
+      const userData = await Data.findOne({ username: username });
+      if (userData) {
+        if (userData.items.includes(item)) {
+          res.render("absolem", { allowed: "false", item: item });
+        } else {
+          let success = ["hookah", "glasses", "mushroom"];
 
-  res.render("absolem", { items: req.query.items, allowed: status });
+          if (success.includes(item)) {
+            res.render("absolem", { allowed: "success", item: item });
+          } else {
+            res.render("absolem", { allowed: "zonk", item: item });
+          }
+
+          userData.items.push(item);
+          await userData.save();
+        }
+      } else {
+        res.render("absolem", { allowed: "null", item: item });
+      }
+    } else {
+      res.render("absolem", { allowed: "prank" });
+    }
+  } else {
+    res.render("absolem", { allowed: null });
+  }
 });
 
 app.get("/datasee", async (req, res) => {

@@ -11,13 +11,44 @@
   <link rel="stylesheet" href="/partials/prompt.css">
 
   <style>
-    .items-data {
-      display: none;
+    .main {
+      background-color: rgba(62, 62, 62, 0.27);
+      box-shadow: 0 0 5px rgb(255, 255, 255, .1);
+      margin: 20px;
+      padding: 50px;
+      border-radius: 20px;
+      backdrop-filter: blur(4px);
+      transition: 1s;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      -webkit-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
+      flex-flow: column wrap;
+      align-items: center;
+      gap:2.5rem;
+      width:75%;
+      text-align:center;
+      animation: fadeUp 0.8s ease-out;
     }
 
-    .username {
-      display: none;
+    .main:hover {
+      box-shadow: 0 25px 50px -12px rgb(255, 255, 255, .1);
+      user-select: none;
+      -ms-user-select: none;
+      -moz-user-select: none;
+      -webkit-user-select: none;
     }
+
+    @keyframes fadeUp {
+      from {
+        opacity:0;
+      }
+    }
+
+      .subtitle {
+        margin-top:1.5rem;
+      }
   </style>
 
 </head>
@@ -25,48 +56,91 @@
 <body>
   <%- include('../public/partials/prompt.ejs') %>
   <div class="main">
-    <h1 class="title">Hi, little kid.</h1>
-    <h2 class="subtitle">Give me something, then I'll give something to you as a trade...</h2>
+    <h1 class="title"></h1>
+    <h2 class="subtitle"></h2>
   </div>
 
     <script src="/components/args.js"></script>
     <script src="/components/prompt.js"></script>
-    <script>  
+    <script>
       window.onload = () => {
-        let items = ["hookah", "glasses", "mushrooms"];
-        
-        if("<%= items %>".replace(/\s/g, "") !== "" && items.includes("<%= items %>".replace(/\s/g, "").toLowerCase()) && "<%= allowed %>".replace(/\s/g, "") === "false") cardPrompt([".prompt", ".title", ".input"], null, true);
-        else if("<%= allowed %>".replace(/\s/g, "") === "404") cardPrompt([".prompt", ".title", ".input"], "Please input your name that has been used before!", true);
-        else if("<%= allowed %>".replace(/\s/g, "") === "already") {
-          document.body.classList.toggle("already", true);
+        let items = ["hookah", "glasses", "mushroom"];
 
-          _(".subtitle").innerHTML = "You have already took this item. This item is limited do not you know, Alice?<br><br>Just go away from here and search for the other item!";
-        } else if("<%= allowed %>".replace(/\s/g, "") === "allowed") {
-          document.body.classList.toggle("allowed", true);
-           _(".subtitle").innerHTML = "Congratulations!<br><br>You achieved an equipment, <b><%= items %></b>";
+        let urlParams = new URLSearchParams(window.location.search);
+
+        let item = urlParams.get("item");
+        let allowed = "<%= allowed %>";
+
+        function replaceSpace(word) {
+          return word ? word.replace(/\s/g, "") : null;
         }
 
-        _("#input").addEventListener("keypress", function (e) {
-          if (e.key === "Enter") {
-            _(".prompt").removeAttribute("status");
-            location.href = window.location.href + "&userid=" + e.target.value;
 
-            if (e.target.value.replace(/\s/g, "") == "" || !e.target.value) {
-              cardPrompt(
-                [".prompt", ".title", ".input"],
-                "Please enter your real name... Alice? Am?",
-                true,
-              );
-            } else {
-              location.href = window.location.href + "&userid=" + e.target.value;
-            }
+        if(replaceSpace(item) && replaceSpace(item) !== "") {
+          if(replaceSpace(allowed) && replaceSpace(allowed) !== "") {
+            if(replaceSpace(allowed) === "success") {
+              document.body.setAttribute("allowed", "success");
+              _(".main .title").innerText = "Hello, Alice.";
+              _(".main .subtitle").innerHTML = "Thank you so much for getting me a " + item + "<br><br>Now you can search for the other object, but be careful with each of them! Because no one knows anything completely about Wonderland.";
+            } else if(replaceSpace(allowed) === "zonk") {
+              _(".main .title").innerText = "No, Alice.";
+              _(".main .subtitle").innerHTML = "You are being ill because of the wrong thing you have found.<br><br>You are such a foolish! Have not I told you to be careful of choosing those items?";
+              } else if(replaceSpace(allowed) === "null") {
+                cardPrompt([".prompt", ".title", ".input"], "Please use the username that you have used before!", true);
+              } else if(replaceSpace(allowed) === "prank") {
+                _(".main .title").innerText = "Hmmm something went wrong, Alice.";
+                _(".main .subtitle").innerHTML = "You have found an unknown item? Make sure to search for the real one!";
+              } else if(replaceSpace(allowed) === "false") {
+                _(".main .title").innerText = "Hello, Alice.";
+                _(".main .subtitle").innerHTML = "You have already found the item. Search for the other items to meet the Absolem!";
+              }
+          } else {
+            cardPrompt([".prompt", ".title", ".input"], null, true);
+            //link?items=cock&username=wakwaw
+          }
+        } else {
+          _(".main .title").innerHTML = "Hi, Alice.";
+          _(".main .subtitle").innerHTML = "You have been lost! Do not you try to search for some items? ";
+        }
+
+        /*
+        1. user masuk
+        2. masukin username
+        3. href ke link pengecekan kasih username
+        dicek: kasih ke link lagi: allowed: true = dapet equipment
+        allowed: false = udh pernah dapet
+
+        allowed: null = datanya belom ada
+
+        allowed: prank = not the correct item
+
+        4. jika ada parameter allowed, statement.
+        jika true: => success or failed (itemnya zonk atau beneran).
+        notif congrats.
+
+        jika false:
+        notif already.
+
+        jika null:
+        input again.
+
+        jika prank:
+        notif wrong item
+        */
+
+        _("#input").addEventListener("keypress", function (e) {
+          let href = location.href;
+
+          let username = urlParams.get("username");
+
+          if(username) href = href.replace("&username=" + username, "");
+
+          if (e.key === "Enter") {
+            location.href = href + "&username=" + e.target.value;
           }
         });
-      };
 
-      function checkItem() {
-        
-      }
+      };
     </script>
 </body>
 
