@@ -173,7 +173,7 @@ body.fake-4 {
 }
 
 body.fake-4 .main {
-  transform:scale(5);
+  transform:scale(.25);
   transition:.75s ease;
 }
 
@@ -185,4 +185,8 @@ body.fake-5 {
 
 .username {
   display:none;
+}
+
+.submission {
+  display: none;
 }

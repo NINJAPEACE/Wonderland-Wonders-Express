@@ -20,8 +20,8 @@
       <li>
         <h1><%= list.username  %></h1>
         <h2>
-          <%= new Date(list.time).toDateString()  %>
-          <%= (Number(new Date(list.time).getHours()) + 7) > 24 ? Number(new Date(list.time).getHours()) + 7 - 24 : Number(new Date(list.time).getHours()) + 7 %>:<%= new Date(list.time).getMinutes()  %>:<%= new Date(list.time).getSeconds()  %></h2>
+          <%= new Date(list.ticktock).toDateString()  %>
+          <%= (Number(new Date(list.ticktock).getHours()) + 7) > 24 ? Number(new Date(list.ticktock).getHours()) + 7 - 24 : Number(new Date(list.ticktock).getHours()) + 7 %>:<%= new Date(list.ticktock).getMinutes()  %>:<%= new Date(list.ticktock).getSeconds()  %></h2>
       </li>
 
   <% } %>

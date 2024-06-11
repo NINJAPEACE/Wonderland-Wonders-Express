@@ -47,3 +47,7 @@
 .prompt .content .input.off {
   display:none;
 }
+
+.prompt .content .paragraph {
+  font-size: 2rem;
+}

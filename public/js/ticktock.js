@@ -9,16 +9,19 @@ let usedFake = {
 };
 let onFake = 0;
 
-function generateInput(status, func) {
+function generateInput(status, func, wrongPass) {
   let num = 0;
 
   if (status) {
     num = "real";
     func(
-      "Ah, Alice, finally you have passed those imaginations!••I have found the real one, here..",
+      wrongPass
+        ? "I think you input the wrong password, Alice. Try to think and use any clue to solve this!"
+        : "Ah, Alice, finally you have passed those imaginations!••I have found the real one, here..",
     );
     _(".send").style.display = "block";
     document.body.className = "activated";
+    _(".submission").style.display = "block";
   } else
     num = "fake-" + fake.list[Math.floor(Math.random() * fake.list.length)];
 
@@ -59,7 +62,7 @@ function singleType(word) {
   }, 55);
 }
 
-function submit() {
+function submitFake() {
   if (!onFake) {
     onFake = 1;
     usedFake.length++;
@@ -80,8 +83,7 @@ function submit() {
       },
       "fake-4": {
         guide: "Ah, must be those fat guys, are not you?",
-        placeholder:
-          "Yes it is me, Alice. Eh, no, it is him, eh what? It is me!",
+        placeholder: "Yes it is me, Alice. Eh, no, it is him, eh what? It is me!",
       },
       "fake-5": {
         guide: "Hmmm, what are you doing, my dear?",
@@ -92,48 +94,33 @@ function submit() {
     _(`.${activeFake}`).placeholder = list[activeFake].placeholder;
     singleType(list[activeFake].guide);
     _("body").classList.add(activeFake);
+
+  setTimeout(() => {
+    if(activeFake !== "real") {
+      generateInput(1, singleType);
+    }
+  }, 5000);
   } else if (onFake && activeFake !== "real") {
     generateInput(1, singleType);
+  }
+}
+
+function submit() {
+  console.log("submit??");
+
+  let password_inputted = _(".password.real").value;
+  if (!password_inputted) {
+    singleType(
+      "Hmm, fill in the password, Alice. Do not be dumb like those creatures...",
+    );
   } else {
-    let password_inputted = _(".password.real").value;
-    if (!password_inputted) {
-      singleType(
-        "Hmm, fill in the password, Alice. Do not be dumb like those creatures...",
-      );
-    } else {
-      password_inputted = password_inputted.replace(/\s/g, "");
+    password_inputted = password_inputted.replace(/\s/g, "");
 
-      let the_key = ["eatme", "drinkme"];
-      let the_key_links = [
-        "https://github.com/NINJAPEACE",
-        "https://tryitands.ee",
-      ];
-
-      if (the_key.includes(password_inputted)) {
-        window.location.replace(
-          the_key_links[the_key.indexOf(password_inputted)],
-        );
-        cardPrompt(
-          [".prompt", ".title", ".input"],
-          "Oh dear! The wonder is happening...",
-        );
-
-        setInterval(() => {
-          if (
-            window.location.href !==
-            the_key_links[the_key.indexOf(password_inputted)]
-          ) {
-            window.location.replace(
-              the_key_links[the_key.indexOf(password_inputted)],
-            );
-          }
-        }, 500);
-      } else {
-        singleType(
-          "Alice, I think it does not work, maybe you have input the wrong password?",
-        );
-      }
-    }
+    window.location.href =
+      "https://0137b1cf-c204-4849-bf00-14452970fc6f-00-3rex8pf0sl8of.sisko.replit.dev:8080/submit?userid=" +
+      _("#username").value +
+      "&password=" +
+      password_inputted;
   }
 }
 
@@ -212,10 +199,20 @@ let typingBar = [
 ];
 
 window.onload = () => {
-  cardPrompt([".prompt", ".title", ".input"], null, true);
+  let urlParams = new URLSearchParams(window.location.search);
+
+  let wrongPass = urlParams.get("wrongpass");
+  if (wrongPass === "true")
+    cardPrompt(
+      [".prompt", ".title", ".input"],
+      "I think you have input the wrong password, Alice. Try to think and solve with any clue! Type your name...",
+      true,
+    );
+  else cardPrompt([".prompt", ".title", ".input"], null, true);
+
+  generateInput(0, singleType);
 
   typing();
-  generateInput(0, singleType);
 
   setInterval(() => {
     typingBar["text-0"] = hideAndSeek("text-0", typingBar, ".bar");
@@ -230,8 +227,16 @@ window.onload = () => {
   }, 300);
 
   _("#password").addEventListener("keypress", function (e) {
-    submit();
+    if (e.key === "Enter") submit();
   });
+
+  let fakeAll = document.getElementsByClassName("fake");
+
+  for (let [key, value] of Object.entries(fakeAll)) {
+    value.addEventListener("keypress", function (e) {
+      if (e.key === "Enter") submitFake();
+    });
+  }
 
   _("#input").addEventListener("keypress", function (e) {
     if (e.key === "Enter") {
@@ -252,6 +257,6 @@ window.onload = () => {
       }
     }
   });
-  
+
   _("#send").addEventListener("click", submit);
 };

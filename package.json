@@ -13,7 +13,7 @@
     "http-errors": "~1.6.3",
     "jade": "~1.11.0",
     "method-override": "^3.0.0",
-    "mongoose": "^8.3.4",
+    "mongoose": "^8.4.1",
     "morgan": "~1.9.1",
     "ping-monitor": "^0.8.2"
   },
