@@ -107,8 +107,6 @@ function submitFake() {
 }
 
 function submit() {
-  console.log("submit??");
-
   let password_inputted = _(".password.real").value;
   if (!password_inputted) {
     singleType(

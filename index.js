@@ -49,7 +49,10 @@ app.get("/absolemganteng123", async (req, res) => {
   let item = req.query.item;
   if (username) {
     if (list.includes(item)) {
-      const userData = await Data.findOne({ username: username });
+      const userData = await Data.findOne({
+        username: username.replace(/\s/g, "").toLowerCase(),
+      });
+
       if (userData) {
         if (userData.items.includes(item)) {
           res.render("absolem", { allowed: "false", item: item });
@@ -72,7 +75,7 @@ app.get("/absolemganteng123", async (req, res) => {
       res.render("absolem", { allowed: "prank" });
     }
   } else {
-    res.render("absolem", { allowed: null });
+    res.render("absolem", { allowed: "null" });
   }
 });
 
@@ -92,7 +95,10 @@ app.post("/submit", async (req, res) => {
   if (!req.body) {
     res.redirect(theURL + "/hareishere");
   } else {
-    console.log(`[SUBMIT] ${req.body.username} --- ${req.body.password}`);
+    let username = req.body.username;
+    username = username.replace(/\s/g, "").toLowerCase();
+
+    console.log(`[SUBMIT] ${username} --- ${req.body.password}`);
 
     const userData = await Data.findOne({ username: req.body.username });
 
@@ -101,7 +107,7 @@ app.post("/submit", async (req, res) => {
     } else {
       if (req.body.password.replace(/\s/g, "").toLowerCase() == "eatme") {
         await Data.create({
-          username: req.body.username,
+          username: username,
           ticktock: Date.now(),
         });
         res.redirect("https://youtu.be/8KSCLZlp7zc?si=OriZKvCrbB9aUhZc");

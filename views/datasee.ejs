@@ -5,7 +5,6 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=Edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <script src="https://kit.fontawesome.com/3ab54522ca.js" crossorigin="anonymous"></script>
 
   <title>Data stats</title>
   <link rel="stylesheet" href="/css/global.css">
@@ -13,21 +12,21 @@
   <style>
     .main {
       display: block;
-      height:auto; 
-      margin: 50% 25px 0 25px;
+      height: auto; 
+      margin: 25px;
       padding: 50px;
     }
 
     @media only screen and (min-width:1024px) {
       .main {
-        margin: 15% 50px 0 50px;
-        display:grid;
+        margin: 50px;
+        display: grid;
         grid-template-columns: repeat(3, 200px);
       }
     }
 
     .user {
-      margin-top:1.5rem;
+      margin-top: 1.5rem;
     }
   </style>
 
@@ -43,8 +42,10 @@
           <div>
             <span>Tick-tock timestamp:</span>
             <span>
-               <%= new Date(list.ticktock).toDateString()  %>
-              <%= (Number(new Date(list.ticktock).getHours()) + 7) > 24 ? Number(new Date(list.ticktock).getHours()) + 7 - 24 : Number(new Date(list.ticktock).getHours()) + 7 %>:<%= new Date(list.ticktock).getMinutes()  %>:<%= new Date(list.ticktock).getSeconds()  %>
+               <%= new Date(list.ticktock + (7*60*60*1000)).toString()  %>
+              <%= (Number(new Date(list.ticktock + (7*60*60*1000)).getHours())) %>:<%= new Date(list.ticktock + (7*60*60*1000)).getMinutes()  %>:<%= new Date(list.ticktock + (7*60*60*1000)).getSeconds()  %>  
+
+                =============================
             </span>
           </div>
           <div>
@@ -54,7 +55,7 @@
         </div>
       </div>
     <% } %>
-  </div>
+    </div>
 </body>
 
 </html>

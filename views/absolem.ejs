@@ -30,6 +30,7 @@
       width:75%;
       text-align:center;
       animation: fadeUp 0.8s ease-out;
+      display: block;
     }
 
     .main:hover {
@@ -47,7 +48,7 @@
     }
 
       .subtitle {
-        margin-top:1.5rem;
+        margin-top: 1.5rem;
       }
   </style>
 
@@ -75,21 +76,19 @@
 
 
         if(replaceSpace(item) && replaceSpace(item) !== "") {
-          if(replaceSpace(allowed) && replaceSpace(allowed) !== "") {
-            if(replaceSpace(allowed) === "success") {
-              document.body.setAttribute("allowed", "success");
+         if(replaceSpace(allowed) && replaceSpace(allowed) !== "") {
+            if(replaceSpace(allowed) == "success") {
               _(".main .title").innerText = "Hello, Alice.";
               _(".main .subtitle").innerHTML = "Thank you so much for getting me a " + item + "<br><br>Now you can search for the other object, but be careful with each of them! Because no one knows anything completely about Wonderland.";
-            } else if(replaceSpace(allowed) === "zonk") {
+            } else if(replaceSpace(allowed) == "zonk") {
               _(".main .title").innerText = "No, Alice.";
               _(".main .subtitle").innerHTML = "You are being ill because of the wrong thing you have found.<br><br>You are such a foolish! Have not I told you to be careful of choosing those items?";
-              } else if(replaceSpace(allowed) === "null") {
+              } else if(replaceSpace(allowed) == "null") {
                 cardPrompt([".prompt", ".title", ".input"], "Please use the username that you have used before!", true);
-              } else if(replaceSpace(allowed) === "prank") {
+              } else if(replaceSpace(allowed) == "prank") {
                 _(".main .title").innerText = "Hmmm something went wrong, Alice.";
                 _(".main .subtitle").innerHTML = "You have found an unknown item? Make sure to search for the real one!";
-              } else if(replaceSpace(allowed) === "false") {
-                _(".main .title").innerText = "Hello, Alice.";
+              } else if(replaceSpace(allowed) == "false") {                                                                                                                                                                                                                         _(".main .title").innerText = "Hello, Alice.";
                 _(".main .subtitle").innerHTML = "You have already found the item. Search for the other items to meet the Absolem!";
               }
           } else {
