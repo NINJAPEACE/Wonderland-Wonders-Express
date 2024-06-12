@@ -17,7 +17,6 @@ const userScheme = new Schema({
   username: String,
   ticktock: Number,
   items: Array,
-  device: String,
 });
 
 const Data = model("UserData", userScheme);
@@ -45,12 +44,11 @@ app.get("/absolemganteng123", async (req, res) => {
     "jubjubbird",
     "bandersnatch",
   ];
-  
+
   let username = req.query.username;
   let item = req.query.item;
   if (username) {
     if (list.includes(item)) {
-      console.log("included item avail");
       const userData = await Data.findOne({ username: username });
       if (userData) {
         if (userData.items.includes(item)) {
@@ -95,15 +93,25 @@ app.post("/submit", async (req, res) => {
     res.redirect(theURL + "/hareishere");
   } else {
     console.log(`[SUBMIT] ${req.body.username} --- ${req.body.password}`);
-    if (req.body.password.replace(/\s/g, "").toLowerCase() == "eatme") {
-      await Data.create({ username: req.body.username, ticktock: Date.now() });
-      res.redirect("https://youtu.be/8KSCLZlp7zc?si=OriZKvCrbB9aUhZc");
-    } else if (
-      req.body.password.replace(/\s/g, "").toLowerCase() == "drinkme"
-    ) {
-      res.redirect("https://youtu.be/X6-lC2VKD8A?si=rE3Gs88TE1-fATNF");
+
+    const userData = await Data.findOne({ username: req.body.username });
+
+    if (userData) {
+      res.redirect(theURL + "/hareishere?alreadyregistered=true");
     } else {
-      res.redirect(theURL + "/hareishere?wrongpass=true");
+      if (req.body.password.replace(/\s/g, "").toLowerCase() == "eatme") {
+        await Data.create({
+          username: req.body.username,
+          ticktock: Date.now(),
+        });
+        res.redirect("https://youtu.be/8KSCLZlp7zc?si=OriZKvCrbB9aUhZc");
+      } else if (
+        req.body.password.replace(/\s/g, "").toLowerCase() == "drinkme"
+      ) {
+        res.redirect("https://youtu.be/X6-lC2VKD8A?si=rE3Gs88TE1-fATNF");
+      } else {
+        res.redirect(theURL + "/hareishere?wrongpass=true");
+      }
     }
   }
 });

@@ -9,23 +9,52 @@
 
   <title>Data stats</title>
   <link rel="stylesheet" href="/css/global.css">
-  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/datasee.css">
+  <style>
+    .main {
+      display: block;
+      height:auto; 
+      margin: 50% 25px 0 25px;
+      padding: 50px;
+    }
+
+    @media only screen and (min-width:1024px) {
+      .main {
+        margin: 15% 50px 0 50px;
+        display:grid;
+        grid-template-columns: repeat(3, 200px);
+      }
+    }
+
+    .user {
+      margin-top:1.5rem;
+    }
+  </style>
 
 </head>
 
 <body>
-<ul>
-  <% for (list of data) { %>
-
-      <li>
-        <h1><%= list.username  %></h1>
-        <h2>
-          <%= new Date(list.ticktock).toDateString()  %>
-          <%= (Number(new Date(list.ticktock).getHours()) + 7) > 24 ? Number(new Date(list.ticktock).getHours()) + 7 - 24 : Number(new Date(list.ticktock).getHours()) + 7 %>:<%= new Date(list.ticktock).getMinutes()  %>:<%= new Date(list.ticktock).getSeconds()  %></h2>
-      </li>
-
-  <% } %>
-</ul>
+  <div class="main">
+    <h1>Statistics</h1>
+    <% for (list of data) { %>
+      <div class="user">
+        <h2><%= list.username  %></h2>
+        <div>
+          <div>
+            <span>Tick-tock timestamp:</span>
+            <span>
+               <%= new Date(list.ticktock).toDateString()  %>
+              <%= (Number(new Date(list.ticktock).getHours()) + 7) > 24 ? Number(new Date(list.ticktock).getHours()) + 7 - 24 : Number(new Date(list.ticktock).getHours()) + 7 %>:<%= new Date(list.ticktock).getMinutes()  %>:<%= new Date(list.ticktock).getSeconds()  %>
+            </span>
+          </div>
+          <div>
+            <span>Items:</span>
+            <span><%= list.items.join(", ")  %></span>
+          </div>
+        </div>
+      </div>
+    <% } %>
+  </div>
 </body>
 
 </html>

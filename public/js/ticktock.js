@@ -83,7 +83,8 @@ function submitFake() {
       },
       "fake-4": {
         guide: "Ah, must be those fat guys, are not you?",
-        placeholder: "Yes it is me, Alice. Eh, no, it is him, eh what? It is me!",
+        placeholder:
+          "Yes it is me, Alice. Eh, no, it is him, eh what? It is me!",
       },
       "fake-5": {
         guide: "Hmmm, what are you doing, my dear?",
@@ -95,11 +96,11 @@ function submitFake() {
     singleType(list[activeFake].guide);
     _("body").classList.add(activeFake);
 
-  setTimeout(() => {
-    if(activeFake !== "real") {
-      generateInput(1, singleType);
-    }
-  }, 5000);
+    setTimeout(() => {
+      if (activeFake !== "real") {
+        generateInput(1, singleType);
+      }
+    }, 5000);
   } else if (onFake && activeFake !== "real") {
     generateInput(1, singleType);
   }
@@ -202,10 +203,17 @@ window.onload = () => {
   let urlParams = new URLSearchParams(window.location.search);
 
   let wrongPass = urlParams.get("wrongpass");
+  let alreadyRegistered = urlParams.get("alreadyregistered");
   if (wrongPass === "true")
     cardPrompt(
       [".prompt", ".title", ".input"],
       "I think you have input the wrong password, Alice. Try to think and solve with any clue! Type your name...",
+      true,
+    );
+  else if (alreadyRegistered === "true")
+    cardPrompt(
+      [".prompt", ".title", ".input"],
+      "This username is already taken, please use another username!",
       true,
     );
   else cardPrompt([".prompt", ".title", ".input"], null, true);
