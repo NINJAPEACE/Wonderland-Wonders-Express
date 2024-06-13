@@ -21,12 +21,16 @@
       .main {
         margin: 50px;
         display: grid;
-        grid-template-columns: repeat(3, 200px);
+        grid-template-columns: repeat(5, 200px);
       }
     }
 
     .user {
       margin-top: 1.5rem;
+    }
+
+    .italic {
+      font-style: italic;
     }
   </style>
 
@@ -41,21 +45,28 @@
         <div>
           <div>
             <span>Tick-tock timestamp:</span>
-            <span>
-               <%= new Date(list.ticktock + (7*60*60*1000)).toString()  %>
+            <span class="italic">
+               <%= new Date(list.ticktock + (7*60*60*1000)).toDateString()  %>
               <%= (Number(new Date(list.ticktock + (7*60*60*1000)).getHours())) %>:<%= new Date(list.ticktock + (7*60*60*1000)).getMinutes()  %>:<%= new Date(list.ticktock + (7*60*60*1000)).getSeconds()  %>  
-
-                =============================
             </span>
           </div>
           <div>
             <span>Items:</span>
-            <span><%= list.items.join(", ")  %></span>
+            <span class="italic"><%= list.items.join(", ")  %></span>
+          </div>
+          <div>
+            <span>Score:</span>
+            <span class="italic"><%= list.score  %></span>
           </div>
         </div>
       </div>
     <% } %>
-    </div>
+  </div>
+   <script>
+        window.onload = () => {
+         
+        }
+      </script>
 </body>
 
 </html>

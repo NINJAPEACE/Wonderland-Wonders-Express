@@ -35,30 +35,20 @@ app.get("/hareishere", function (req, res) {
 });
 
 app.get("/absolemganteng123", async (req, res) => {
-  let list = [
-    "hookah",
-    "glasses",
-    "mushroom",
-    "cake",
-    "potion",
-    "jubjubbird",
-    "bandersnatch",
-  ];
+  let { list } = require("./config.json");
 
   let username = req.query.username;
   let item = req.query.item;
   if (username) {
     if (list.includes(item)) {
       const userData = await Data.findOne({
-        username: typeof username == "string" ? username.replace(/\s/g, "").toLowerCase() : username[username.length-1].replace(/\s/g, "").toLowerCase(),
+        username: typeof username == "string" ? username.replace(/\s/g, "").toLowerCase() : username[username.length-1].replace(/\s/g, "").toLowerCase()
       });
 
       if (userData) {
         if (userData.items.includes(item)) {
           res.render("absolem", { allowed: "false", item: item });
         } else {
-          let success = ["hookah", "glasses", "mushroom"];
-
           if (success.includes(item)) {
             res.render("absolem", { allowed: "success", item: item });
           } else {
@@ -69,7 +59,7 @@ app.get("/absolemganteng123", async (req, res) => {
           await userData.save();
         }
       } else {
-        res.render("absolem", { allowed: "notfound", item: item });
+        res.render("absolem", { allowed: "notfound" });
       }
     } else {
       res.render("absolem", { allowed: "prank" });
@@ -80,8 +70,47 @@ app.get("/absolemganteng123", async (req, res) => {
 });
 
 app.get("/datasee", async (req, res) => {
-  const data = await Data.find({});
+  let data = await Data.find({});
+
+  for(let x = 0; x < data.length; x++) {
+    let score = 0;
+
+    for(y of data[x].items) {
+      if(require("./config.json").successList.includes(y)) score += 1;
+      else score -= 1;
+    }
+
+    data[x].score = score;
+  }
+
+  data = data.sort((a, b) => {
+    let z = b.score - a.score;
+
+    if(z == 0) {
+      return a.ticktock - b.ticktock;
+    } else return z;
+  })
   res.render("datasee", { data });
+});
+
+let { successList } = require("./config.json");
+
+app.get("/playlistabsolemganteng", async(req, res) => {
+  let username = req.query.user;
+
+  if(username) {
+    const userData = await Data.findOne({
+      username: typeof username == "string" ? username.replace(/\s/g, "").toLowerCase() : username[username.length-1].replace(/\s/g, "").toLowerCase()
+    });
+
+    if(userData && userData.items.includes(successList[0]) || userData && userData.items.includes(successList[1]) || userData && userData.items.includes(successList[2])) {
+      res.redirect(require("./config.json").playlist);
+    } else {
+      res.render("404");
+    }
+  } else {
+    res.render("404");
+  }
 });
 
 app.get("*", function (req, res) {
@@ -89,11 +118,10 @@ app.get("*", function (req, res) {
 });
 
 app.post("/submit", async (req, res) => {
-  let theURL =
-    "https://0137b1cf-c204-4849-bf00-14452970fc6f-00-3rex8pf0sl8of.sisko.replit.dev:8080";
+  let { link } = require("./config.json");
 
   if (!req.body) {
-    res.redirect(theURL + "/hareishere");
+    res.redirect(link + "/hareishere");
   } else {
     let username = req.body.username;
     username = username.replace(/\s/g, "").toLowerCase();
@@ -103,20 +131,20 @@ app.post("/submit", async (req, res) => {
     const userData = await Data.findOne({ username: req.body.username.replace(/\s/g, "").toLowerCase() });
 
     if (userData) {
-      res.redirect(theURL + "/hareishere?alreadyregistered=true");
+      res.redirect(link + "/hareishere?alreadyregistered=true");
     } else {
       if (req.body.password.replace(/\s/g, "").toLowerCase() == "eatme") {
         await Data.create({
           username: username,
           ticktock: Date.now(),
         });
-        res.redirect("https://youtu.be/8KSCLZlp7zc?si=OriZKvCrbB9aUhZc");
+        res.redirect(require("./config.json").successLink);
       } else if (
         req.body.password.replace(/\s/g, "").toLowerCase() == "drinkme"
       ) {
-        res.redirect("https://youtu.be/X6-lC2VKD8A?si=rE3Gs88TE1-fATNF");
+        res.redirect(require("./config.json").failedLink);
       } else {
-        res.redirect(theURL + "/hareishere?wrongpass=true");
+        res.redirect(link + "/hareishere?wrongpass=true");
       }
     }
   }

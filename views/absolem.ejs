@@ -111,6 +111,12 @@
             location.href = href + "&username=" + e.target.value;
           }
         });
+
+        _(".clue").addEventListener("click", function(e) {
+          let username = urlParams.get("username");
+          
+          location.href = "https://0137b1cf-c204-4849-bf00-14452970fc6f-00-3rex8pf0sl8of.sisko.replit.dev:8080/playlistabsolemganteng?user=" + username;
+        });
       };
     </script>
 </body>

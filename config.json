@@ -1,0 +1,16 @@
+{
+  "list": [
+    "hookah",
+    "glasses",
+    "mushroom",
+    "cake",
+    "potion",
+    "jubjubbird",
+    "bandersnatch"
+  ],
+  "successList": ["hookah", "glasses", "mushroom"],
+  "link": "https://0137b1cf-c204-4849-bf00-14452970fc6f-00-3rex8pf0sl8of.sisko.replit.dev:8080",
+  "successLink": "https://youtu.be/8KSCLZlp7zc?si=OriZKvCrbB9aUhZc",
+  "failedLink": "https://youtu.be/X6-lC2VKD8A?si=rE3Gs88TE1-fATNF",
+  "playlist": "https://youtube.com/playlist?list=PLDEGQ61BkM3kTzjM95MyCYqRnG5FL6-e3&si=cmcbYj0CmFkYQzb4"
+}
