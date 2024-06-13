@@ -1,0 +1,27 @@
+.main {
+  animation: fadeUp 1s ease-out;
+  display: block;
+  padding:50px;
+}
+
+  .subtitle {
+    margin-top: 1.5rem;
+  }
+
+.clue {
+  backdrop-filter: blur(20px);
+  padding: 10px;
+  margin: 2rem;
+  border-radius: 25px 10px 25px 10px;
+  box-shadow: 0 0 5px rgb(255, 255, 255, .1);
+  transition: 1s;
+  display: none;
+}
+
+.clue:hover {
+  user-select: none;
+  -ms-user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  box-shadow: 0 25px 50px -12px rgb(255, 255, 255, .1);
+}

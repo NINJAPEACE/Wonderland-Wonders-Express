@@ -1,39 +1,14 @@
 .main {
-  background-color: rgba(62, 62, 62, 0.27);
-  box-shadow: 0 0 5px rgb(255, 255, 255, .1);
-  margin: 20px;
-  padding: 10px;
-  border-radius: 20px;
-  backdrop-filter: blur(4px);
-  transition: 1s;
   display: none;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  -webkit-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-  flex-flow: column wrap;
-  align-items: center;
-  gap:2.5rem;
-  width:75%;
-  text-align:center;
 }
 
 .main .password {
-  margin-top:2rem;
+  margin-top: 2rem;
 }
 
 body.activated .main {
   display: block;
   animation: fadeUp 1s ease-in;
-}
-
-.main:hover {
-  box-shadow: 0 25px 50px -12px rgb(255, 255, 255, .1);
-  user-select: none;
-  -ms-user-select: none;
-  -moz-user-select: none;
-  -webkit-user-select: none;
 }
 
 .hi {
@@ -65,7 +40,6 @@ body.activated .main {
   transition:0.5s;
 }
 
-
 .form {
   width: 100%;
   padding: 15px;
@@ -75,12 +49,6 @@ body.activated .main {
 .password {
   display: none;
   animation: fade 1s ease-out;
-}
-
-@keyframes fade {
-  from {
-    opacity: 0;
-  }
 }
 
 .text-0,
@@ -183,10 +151,6 @@ body.fake-5 {
   color:#eee;
 }
 
-.username {
+.username, .submission {
   display:none;
-}
-
-.submission {
-  display: none;
 }

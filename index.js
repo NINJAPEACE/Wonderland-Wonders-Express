@@ -50,7 +50,7 @@ app.get("/absolemganteng123", async (req, res) => {
   if (username) {
     if (list.includes(item)) {
       const userData = await Data.findOne({
-        username: username.replace(/\s/g, "").toLowerCase(),
+        username: typeof username == "string" ? username.replace(/\s/g, "").toLowerCase() : username[username.length-1].replace(/\s/g, "").toLowerCase(),
       });
 
       if (userData) {
@@ -69,13 +69,13 @@ app.get("/absolemganteng123", async (req, res) => {
           await userData.save();
         }
       } else {
-        res.render("absolem", { allowed: "null", item: item });
+        res.render("absolem", { allowed: "notfound", item: item });
       }
     } else {
       res.render("absolem", { allowed: "prank" });
     }
   } else {
-    res.render("absolem", { allowed: "null" });
+    res.render("absolem", { allowed: null });
   }
 });
 
@@ -100,7 +100,7 @@ app.post("/submit", async (req, res) => {
 
     console.log(`[SUBMIT] ${username} --- ${req.body.password}`);
 
-    const userData = await Data.findOne({ username: req.body.username });
+    const userData = await Data.findOne({ username: req.body.username.replace(/\s/g, "").toLowerCase() });
 
     if (userData) {
       res.redirect(theURL + "/hareishere?alreadyregistered=true");

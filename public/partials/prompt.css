@@ -14,12 +14,6 @@
   animation: fadeUp 0.75s ease-out;
 }
 
-@keyframes fadeUp {
-  from {
-    opacity: 0;
-  }
-}
-
 .prompt .content {
   position: absolute;
   left: 50%;
