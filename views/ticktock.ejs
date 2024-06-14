@@ -14,46 +14,46 @@
 
 <body>
   <%- include('../public/partials/prompt.ejs') %>
-  <h1 class="text-0">
-    <span class="changed"></span>
-    <span class="bar">&nbsp;|</span>
-  </h1>
-  <h1 class="text-1">
-    <span class="changed"></span>
-    <span class="bar">&nbsp;|</span>
-  </h1>
-  <div class="main">
-    <div class="hi">
-      <h1>Hi, Alice.</h1>
+    <h1 class="text-0">
+      <span class="changed"></span>
+      <span class="bar">&nbsp;|</span>
+    </h1>
+    <h1 class="text-1">
+      <span class="changed"></span>
+      <span class="bar">&nbsp;|</span>
+    </h1>
+    <div class="main">
+      <div class="hi">
+        <h1>Hi, Alice.</h1>
 
-      <p class="guide">
-        <span class="changed"></span>
-        <span class="bar">&nbsp;|</span>
-      </p>
-    </div>
+        <p class="guide">
+          <span class="changed"></span>
+          <span class="bar">&nbsp;|</span>
+        </p>
+      </div>
 
-    <div class="form real">
-      <form class="nothing">
-        <input class="password fake fake-1" placeholder="Yes, fill me, sweetheart" type="text" id="passfake">
-        <input class="password fake fake-2" placeholder="Am? You're welcomed" type="text" id="passfake">
-        <input class="password fake fake-3" placeholder="Please save my wife and kids" type="text" id="passfake">
-        <input class="password fake fake-4" placeholder="Welcome back, dear Alice" type="text" id="passfake">
-        <input class="password fake fake-5" placeholder="Do you want to be my wife, Alice?" id="passfake" type="text">
-      </form>
-      <form class="submission" id="submission" action="/submit" method="post">
-        <input name="password" class="password real" placeholder="This one probably..." type="text" id="password">
-        <input type="text" class="username" name="username" id="username">
-        <button class="send" id="send">Send?</button>
-     </form>
+      <div class="form real">
+        <form class="nothing">
+          <input class="password fake fake-1" placeholder="Yes, fill me, sweetheart" type="text" id="passfake">
+          <input class="password fake fake-2" placeholder="Am? You're welcomed" type="text" id="passfake">
+          <input class="password fake fake-3" placeholder="Please save my wife and kids" type="text" id="passfake">
+          <input class="password fake fake-4" placeholder="Welcome back, dear Alice" type="text" id="passfake">
+          <input class="password fake fake-5" placeholder="Do you want to be my wife, Alice?" id="passfake" type="text">
+        </form>
+        <form class="submission" id="submission" action="/submit" method="post">
+          <input name="password" class="password real" placeholder="This one probably..." type="text" id="password">
+          <input type="text" class="username" name="username" id="username">
+          <button class="send" id="send">Send?</button>
+        </form>
+      </div>
+
     </div>
-    
-  </div>
-  <!-- Project -->
-  <script src="/components/args.js"></script>
-  <script src="/components/timeout.js"></script>
-  <script src="/components/hideAndSeek.js"></script>
-  <script src="/components/prompt.js"></script>
-  <script src="/js/ticktock.js"></script>
+    <!-- Project -->
+    <script src="/components/args.js"></script>
+    <script src="/components/timeout.js"></script>
+    <script src="/components/hideAndSeek.js"></script>
+    <script src="/components/prompt.js"></script>
+    <script src="/js/ticktock.js"></script>
 </body>
 
 </html>

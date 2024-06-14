@@ -36,14 +36,14 @@ body.activated .main {
 }
 
 .form .eye:hover {
-  opacity:50%;
-  transition:0.5s;
+  opacity: 50%;
+  transition: 0.5s;
 }
 
 .form {
   width: 100%;
   padding: 15px;
-  text-align:center;
+  text-align: center;
 }
 
 .password {
@@ -111,8 +111,8 @@ body.activated .main {
 }
 
 body.fake-1 {
-  background-color:#6814fa;
-  color:#e1dce8;
+  background-color: #6814fa;
+  color: #e1dce8;
 }
 
 body.fake-1 .fake-1 {
@@ -126,31 +126,32 @@ body.fake-2 {
 }
 
 body.fake-3 .main {
-  transform:skew(50deg) rotateY(180deg);
-  transition:0.8s ease;
+  transform: skew(50deg) rotateY(180deg);
+  transition: 0.8s ease;
 }
 
 body.fake-3 {
-  background-color:#0db51b;
-  color:#f0ec89;
+  background-color: #0db51b;
+  color: #f0ec89;
 }
 
 body.fake-4 {
-  background-color:#e31414;
-  color:#38046b;
+  background-color: #e31414;
+  color: #38046b;
 }
 
 body.fake-4 .main {
-  transform:scale(.25);
-  transition:.75s ease;
+  transform: scale(.25);
+  transition: .75s ease;
 }
 
 body.fake-5 {
-  font-size:25px;
-  background-color:#f72fe3;
-  color:#eee;
+  font-size: 25px;
+  background-color: #f72fe3;
+  color: #eee;
 }
 
-.username, .submission {
-  display:none;
+.username,
+.submission {
+  display: none;
 }

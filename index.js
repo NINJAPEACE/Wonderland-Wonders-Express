@@ -42,7 +42,10 @@ app.get("/absolemganteng123", async (req, res) => {
   if (username) {
     if (list.includes(item)) {
       const userData = await Data.findOne({
-        username: typeof username == "string" ? username.replace(/\s/g, "").toLowerCase() : username[username.length-1].replace(/\s/g, "").toLowerCase()
+        username:
+          typeof username == "string"
+            ? username.replace(/\s/g, "").toLowerCase()
+            : username[username.length - 1].replace(/\s/g, "").toLowerCase(),
       });
       let success = require("./config.json").successList;
 
@@ -73,11 +76,11 @@ app.get("/absolemganteng123", async (req, res) => {
 app.get("/datasee", async (req, res) => {
   let data = await Data.find({});
 
-  for(let x = 0; x < data.length; x++) {
+  for (let x = 0; x < data.length; x++) {
     let score = 0;
 
-    for(y of data[x].items) {
-      if(require("./config.json").successList.includes(y)) score += 1;
+    for (y of data[x].items) {
+      if (require("./config.json").successList.includes(y)) score += 1;
       else score -= 1;
     }
 
@@ -87,24 +90,31 @@ app.get("/datasee", async (req, res) => {
   data = data.sort((a, b) => {
     let z = b.score - a.score;
 
-    if(z == 0) {
+    if (z == 0) {
       return a.ticktock - b.ticktock;
     } else return z;
-  })
+  });
   res.render("datasee", { data });
 });
 
 let { successList } = require("./config.json");
 
-app.get("/playlistabsolemganteng", async(req, res) => {
+app.get("/playlistabsolemganteng", async (req, res) => {
   let username = req.query.user;
 
-  if(username) {
+  if (username) {
     const userData = await Data.findOne({
-      username: typeof username == "string" ? username.replace(/\s/g, "").toLowerCase() : username[username.length-1].replace(/\s/g, "").toLowerCase()
+      username:
+        typeof username == "string"
+          ? username.replace(/\s/g, "").toLowerCase()
+          : username[username.length - 1].replace(/\s/g, "").toLowerCase(),
     });
 
-    if(userData && userData.items.includes(successList[0]) || userData && userData.items.includes(successList[1]) || userData && userData.items.includes(successList[2])) {
+    if (
+      (userData && userData.items.includes(successList[0])) ||
+      (userData && userData.items.includes(successList[1])) ||
+      (userData && userData.items.includes(successList[2]))
+    ) {
       res.redirect(require("./config.json").playlist);
     } else {
       res.render("404");
@@ -129,7 +139,9 @@ app.post("/submit", async (req, res) => {
 
     console.log(`[SUBMIT] ${username} --- ${req.body.password}`);
 
-    const userData = await Data.findOne({ username: req.body.username.replace(/\s/g, "").toLowerCase() });
+    const userData = await Data.findOne({
+      username: req.body.username.replace(/\s/g, "").toLowerCase(),
+    });
 
     if (userData) {
       res.redirect(link + "/hareishere?alreadyregistered=true");

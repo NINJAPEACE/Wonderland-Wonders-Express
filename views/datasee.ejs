@@ -12,7 +12,7 @@
   <style>
     .main {
       display: block;
-      height: auto; 
+      height: auto;
       margin: 25px;
       padding: 50px;
     }
@@ -41,32 +41,38 @@
     <h1>Statistics</h1>
     <% for (list of data) { %>
       <div class="user">
-        <h2><%= list.username  %></h2>
+        <h2>
+          <%= list.username %>
+        </h2>
         <div>
           <div>
             <span>Tick-tock timestamp:</span>
             <span class="italic">
-               <%= new Date(list.ticktock + (7*60*60*1000)).toDateString()  %>
-              <%= (Number(new Date(list.ticktock + (7*60*60*1000)).getHours())) %>:<%= new Date(list.ticktock + (7*60*60*1000)).getMinutes()  %>:<%= new Date(list.ticktock + (7*60*60*1000)).getSeconds()  %>  
+              <%= new Date(list.ticktock + (7*60*60*1000)).toDateString() %>
+                <%= (Number(new Date(list.ticktock + (7*60*60*1000)).getHours())) %>:<%= new Date(list.ticktock +
+                    (7*60*60*1000)).getMinutes() %>:<%= new Date(list.ticktock + (7*60*60*1000)).getSeconds() %>
             </span>
           </div>
           <div>
             <span>Items:</span>
-            <span class="italic"><%= list.items.join(", ")  %></span>
+            <span class="italic">
+              <%= list.items.join(", ")  %></span>
           </div>
           <div>
             <span>Score:</span>
-            <span class="italic"><%= list.score  %></span>
+            <span class=" italic">
+                <%= list.score %>
+            </span>
           </div>
         </div>
       </div>
-    <% } %>
+      <% } %>
   </div>
-   <script>
-        window.onload = () => {
-         
-        }
-      </script>
+  <script>
+    window.onload = () => {
+
+    }
+  </script>
 </body>
 
 </html>

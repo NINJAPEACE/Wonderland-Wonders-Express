@@ -1,12 +1,12 @@
 .main {
   animation: fadeUp 1s ease-out;
   display: block;
-  padding:50px;
+  padding: 50px;
 }
 
-  .subtitle {
-    margin-top: 1.5rem;
-  }
+.subtitle {
+  margin-top: 1.5rem;
+}
 
 .clue {
   backdrop-filter: blur(20px);

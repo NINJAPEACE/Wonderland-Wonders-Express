@@ -23,7 +23,7 @@
   display: flex;
   flex-flow: column wrap;
   align-items: center;
-  gap:2.5rem;
+  gap: 2.5rem;
 }
 
 .prompt .content .input {
@@ -35,11 +35,11 @@
   background-color: #5555555C;
   color: #E9E9E9;
   box-shadow: 0 0 5px rgb(255, 255, 255, .1);
-  display:block;
+  display: block;
 }
 
 .prompt .content .input.off {
-  display:none;
+  display: none;
 }
 
 .prompt .content .paragraph {

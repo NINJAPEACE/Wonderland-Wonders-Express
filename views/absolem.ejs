@@ -18,11 +18,11 @@
 
 <body>
   <%- include('../public/partials/prompt.ejs') %>
-  <div class="main">
-    <h1 class="title"></h1>
-    <h2 class="subtitle"></h2>
-    <div class="clue">Next clue</div>
-  </div>
+    <div class="main">
+      <h1 class="title"></h1>
+      <h2 class="subtitle"></h2>
+      <div class="clue">Next clue</div>
+    </div>
 
     <script src="/components/args.js"></script>
     <script src="/components/prompt.js"></script>
@@ -112,9 +112,9 @@
           }
         });
 
-        _(".clue").addEventListener("click", function(e) {
+        _(".clue").addEventListener("click", function (e) {
           let username = urlParams.get("username");
-          
+
           location.href = "https://0137b1cf-c204-4849-bf00-14452970fc6f-00-3rex8pf0sl8of.sisko.replit.dev:8080/playlistabsolemganteng?user=" + username;
         });
       };
