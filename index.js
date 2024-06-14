@@ -44,6 +44,7 @@ app.get("/absolemganteng123", async (req, res) => {
       const userData = await Data.findOne({
         username: typeof username == "string" ? username.replace(/\s/g, "").toLowerCase() : username[username.length-1].replace(/\s/g, "").toLowerCase()
       });
+      let success = require("./config.json").successList;
 
       if (userData) {
         if (userData.items.includes(item)) {

@@ -56,10 +56,6 @@ h3 {
 
 .main:hover {
   box-shadow: 0 25px 50px -12px rgb(255, 255, 255, .1);
-  user-select: none;
-  -ms-user-select: none;
-  -moz-user-select: none;
-  -webkit-user-select: none;
 }
 
 @keyframes fadeUp {
