@@ -2,7 +2,6 @@ const express = require("express"),
   app = express();
 const mongoose = require("mongoose");
 const morgan = require("morgan");
-const methodOverride = require("method-override");
 
 mongoose.connect(process.env.MONGODB_URI, {});
 
@@ -22,7 +21,6 @@ const userScheme = new Schema({
 const Data = model("UserData", userScheme);
 
 app.use(morgan("tiny"));
-app.use(methodOverride("_method"));
 app.use(express.urlencoded({ extended: true }));
 
 app.set("view engine", "ejs");
